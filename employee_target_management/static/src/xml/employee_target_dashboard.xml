@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="employee_target_management.EmployeeTargetDashboard">
+
+        <div class="employee-target-dashboard">
+
+            <div class="dashboard-header">
+                <h1>Employee Target Dashboard</h1>
+            </div>
+
+            <!-- Filters -->
+
+            <div class="dashboard-filters">
+
+                <div class="filter-item">
+                    <label>Employee</label>
+
+                    <select
+                        t-on-change="onEmployeeChange"
+                        class="form-select">
+
+                        <option value="">All Employees</option>
+
+                        <t t-foreach="state.employees"
+                           t-as="employee"
+                           t-key="employee.id">
+
+                            <option
+                                t-att-value="employee.id"
+                                t-att-selected="
+                                    state.employeeId === employee.id
+                                ">
+
+                                <t t-esc="employee.name"/>
+
+                            </option>
+
+                        </t>
+
+                    </select>
+                </div>
+
+
+                <div class="filter-item">
+                    <label>Period</label>
+
+                    <select
+                        t-on-change="onPeriodChange"
+                        class="form-select">
+
+                        <option value="">All Periods</option>
+
+                        <t t-foreach="state.periods"
+                           t-as="period"
+                           t-key="period.id">
+
+                            <option
+                                t-att-value="period.id"
+                                t-att-selected="
+                                    state.periodId === period.id
+                                ">
+
+                                <t t-esc="period.name"/>
+
+                            </option>
+
+                        </t>
+
+                    </select>
+                </div>
+
+
+                <div class="filter-item">
+                    <label>Target Type</label>
+
+                    <select
+                        t-on-change="onTargetTypeChange"
+                        class="form-select">
+
+                        <option value="">All Target Types</option>
+
+                        <t t-foreach="state.targetTypes"
+                           t-as="targetType"
+                           t-key="targetType.id">
+
+                            <option
+                                t-att-value="targetType.id"
+                                t-att-selected="
+                                    state.targetTypeId === targetType.id
+                                ">
+
+                                <t t-esc="targetType.name"/>
+
+                            </option>
+
+                        </t>
+
+                    </select>
+                </div>
+
+
+                <div class="filter-item">
+                    <label>Status</label>
+
+                    <select
+                        t-on-change="onStatusChange"
+                        class="form-select">
+
+                        <option value="">All Status</option>
+                        <option value="draft">Draft</option>
+                        <option value="submitted">Submitted</option>
+                        <option value="approved">Approved</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+
+                    </select>
+                </div>
+
+
+                <div class="filter-item filter-button">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        t-on-click="clearFilters">
+
+                        Clear Filters
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Summary Cards -->
+
+            <div class="dashboard-cards">
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        Total Target
+                    </div>
+
+                    <div class="card-value">
+                        <t t-esc="state.totalTarget"/>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        Total Achieved
+                    </div>
+
+                    <div class="card-value">
+                        <t t-esc="state.totalAchieved"/>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        Overall Progress
+                    </div>
+
+                    <div class="card-value">
+                        <t t-esc="state.progress.toFixed(1)"/>%
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        Active Targets
+                    </div>
+
+                    <div class="card-value">
+                        <t t-esc="state.activeCount"/>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card">
+                    <div class="card-title">
+                        Completed Targets
+                    </div>
+
+                    <div class="card-value">
+                        <t t-esc="state.completedCount"/>
+                    </div>
+                </div>
+
+            </div>
+
+
+<div class="dashboard-charts">
+
+    <div class="chart-card chart-large">
+
+        <div class="chart-header">
+            <h2>Target vs Achieved</h2>
+        </div>
+
+        <div class="chart-container">
+            <canvas t-ref="targetChart"/>
+        </div>
+
+    </div>
+
+
+    <div class="chart-card chart-large">
+
+        <div class="chart-header">
+            <h2>Employee Progress</h2>
+        </div>
+
+        <div class="chart-container">
+            <canvas t-ref="progressChart"/>
+        </div>
+
+    </div>
+
+
+    <div class="chart-card">
+
+        <div class="chart-header">
+            <h2>Achievement by Target Type</h2>
+        </div>
+
+        <div class="chart-container">
+            <canvas t-ref="typeChart"/>
+        </div>
+
+    </div>
+
+
+    <div class="chart-card">
+
+        <div class="chart-header">
+            <h2>Target Status</h2>
+        </div>
+
+        <div class="chart-container chart-donut">
+            <canvas t-ref="statusChart"/>
+        </div>
+
+    </div>
+
+</div>
+            <!-- Target Table -->
+
+            <div class="dashboard-table">
+
+                <h2>Employee Targets</h2>
+
+                <table class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Target Type</th>
+                            <th>Period</th>
+                            <th>Target</th>
+                            <th>Achieved</th>
+                            <th>Progress</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <t t-foreach="state.targets"
+                           t-as="target"
+                           t-key="target.id">
+
+                            <tr>
+
+                                <td>
+                                    <t t-esc="
+                                        target.employee_id
+                                        ? target.employee_id[1]
+                                        : ''
+                                    "/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="
+                                        target.target_type_id
+                                        ? target.target_type_id[1]
+                                        : ''
+                                    "/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="
+                                        target.period_id
+                                        ? target.period_id[1]
+                                        : ''
+                                    "/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="target.target_value"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="target.achieved_value"/>
+                                </td>
+
+                                <td>
+                                    <t t-esc="
+                                        (target.progress || 0).toFixed(1)
+                                    "/>%
+                                </td>
+
+                                <td>
+                                    <t t-esc="target.status"/>
+                                </td>
+
+                            </tr>
+
+                        </t>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+           
+
+        </div>
+
+    </t>
+
+</templates>

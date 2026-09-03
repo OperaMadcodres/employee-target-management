@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_employee_target_user,employee.target user,model_employee_target,employee_target_management.group_employee_target_user,1,0,0,0
+access_employee_target_manager,employee.target manager,model_employee_target,employee_target_management.group_employee_target_manager,1,1,1,1
+
+access_employee_target_type_user,employee.target.type user,model_employee_target_type,employee_target_management.group_employee_target_user,1,0,0,0
+access_employee_target_type_manager,employee.target.type manager,model_employee_target_type,employee_target_management.group_employee_target_manager,1,1,1,1
+
+access_employee_target_period_user,employee.target.period user,model_employee_target_period,employee_target_management.group_employee_target_user,1,0,0,0
+access_employee_target_period_manager,employee.target.period manager,model_employee_target_period,employee_target_management.group_employee_target_manager,1,1,1,1

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!-- Employee Target List -->
+    <record id="view_employee_target_list" model="ir.ui.view">
+        <field name="name">employee.target.list</field>
+        <field name="model">employee.target</field>
+
+        <field name="arch" type="xml">
+            <list string="Employee Targets">
+
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="target_type_id"/>
+                <field name="period_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="target_value"/>
+                <field name="achieved_value"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="status"/>
+                <field name="active"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Employee Target Form -->
+    <record id="view_employee_target_form" model="ir.ui.view">
+        <field name="name">employee.target.form</field>
+        <field name="model">employee.target</field>
+
+        <field name="arch" type="xml">
+            <form string="Employee Target">
+
+
+<header>
+
+    <!-- Submit -->
+    <button
+        name="action_submit"
+        string="Submit"
+        type="object"
+        class="btn-primary"
+        invisible="status != 'draft'"/>
+
+
+    <!-- Approve -->
+    <button
+        name="action_approve"
+        string="Approve"
+        type="object"
+        class="btn-primary"
+        groups="employee_target_management.group_employee_target_manager"
+        invisible="status != 'submitted'"/>
+
+
+    <!-- Activate -->
+    <button
+        name="action_activate"
+        string="Activate"
+        type="object"
+        class="btn-primary"
+        groups="employee_target_management.group_employee_target_manager"
+        invisible="status != 'approved'"/>
+
+
+    <!-- Complete -->
+    <button
+        name="action_complete"
+        string="Complete"
+        type="object"
+        class="btn-primary"
+        groups="employee_target_management.group_employee_target_manager"
+        invisible="status != 'active'"/>
+
+
+    <!-- Cancel -->
+    <button
+        name="action_cancel"
+        string="Cancel"
+        type="object"
+        class="btn-secondary"
+        groups="employee_target_management.group_employee_target_manager"
+        invisible="status in ('completed', 'cancelled')"/>
+
+
+    <!-- Reset to Draft -->
+    <button
+        name="action_reset_to_draft"
+        string="Reset to Draft"
+        type="object"
+        class="btn-secondary"
+        groups="employee_target_management.group_employee_target_manager"
+        invisible="status not in ('cancelled', 'submitted')"/>
+
+
+    <!-- Calculate -->
+    <button
+        name="action_calculate_achievement"
+        string="Calculate Achievement"
+        type="object"
+        class="btn-primary"
+        groups="employee_target_management.group_employee_target_user,employee_target_management.group_employee_target_manager"
+        invisible="status in ('cancelled', 'completed')"/>
+
+
+    <field name="status"
+           widget="statusbar"
+           statusbar_visible="draft,submitted,approved,active,completed"/>
+
+</header>
+
+
+                <sheet>
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"
+                                   placeholder="e.g. August Sales Target"/>
+                        </h1>
+                    </div>
+
+                    <group>
+
+                        <group>
+                            <field name="employee_id"/>
+
+                            <field name="target_type_id"/>
+
+                            <field name="period_id"/>
+                        </group>
+
+                        <group>
+                            <field name="date_from"
+                                   readonly="1"/>
+
+                            <field name="date_to"
+                                   readonly="1"/>
+                            <field name="status"/>
+                            <field name="active"/>
+                        </group>
+
+                    </group>
+
+
+                    <group string="Target">
+
+    <group>
+        <field name="target_value"/>
+        <field name="achieved_value"/>
+    </group>
+
+    <group>
+        <field name="progress"
+       widget="progressbar"
+       readonly="1"/>
+    </group>
+
+</group>
+
+
+                    <group string="Notes">
+                        <field name="notes"
+                               placeholder="Add notes about this target..."/>
+                    </group>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Employee Target Action -->
+    <record id="action_employee_target" model="ir.actions.act_window">
+
+        <field name="name">Employee Targets</field>
+
+        <field name="res_model">employee.target</field>
+
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <!-- ============================================================
+         Employee Target Management Privilege
+         ============================================================ -->
+
+    <record id="res_groups_privilege_employee_target"
+            model="res.groups.privilege">
+
+        <field name="name">Employee Target Management</field>
+
+        <field name="sequence">50</field>
+
+        <field name="category_id"
+               ref="base.module_category_human_resources"/>
+
+    </record>
+
+
+    <!-- ============================================================
+         Target User
+         ============================================================ -->
+
+    <record id="group_employee_target_user"
+            model="res.groups">
+
+        <field name="name">Target User</field>
+
+        <field name="sequence">10</field>
+
+        <field name="privilege_id"
+               ref="res_groups_privilege_employee_target"/>
+
+    </record>
+
+
+    <!-- ============================================================
+         Target Manager
+         ============================================================ -->
+
+    <record id="group_employee_target_manager"
+            model="res.groups">
+
+        <field name="name">Target Manager</field>
+
+        <field name="sequence">20</field>
+
+        <field name="privilege_id"
+               ref="res_groups_privilege_employee_target"/>
+
+        <field name="implied_ids"
+               eval="[(4, ref('group_employee_target_user'))]"/>
+
+    </record>
+
+</odoo>

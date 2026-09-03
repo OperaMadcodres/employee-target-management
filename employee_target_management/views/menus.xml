@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+   
+        
+    <!-- Main Application -->
+    <menuitem
+        id="menu_employee_target_root"
+        name="Employee Targets"
+        sequence="10"
+        groups="employee_target_management.group_employee_target_user,employee_target_management.group_employee_target_manager"/>
+
+<menuitem
+        id="menu_employee_target_dashboard"
+        name="Dashboard"
+        parent="menu_employee_target_root"
+        action="action_employee_target_dashboard"
+        sequence="1"
+        groups="employee_target_management.group_employee_target_user,employee_target_management.group_employee_target_manager"/>
+
+
+    <!-- Employee Targets -->
+    <menuitem
+        id="menu_employee_target"
+        name="Targets"
+        parent="menu_employee_target_root"
+        action="action_employee_target"
+        sequence="10"
+        groups="employee_target_management.group_employee_target_user,employee_target_management.group_employee_target_manager"/>
+
+
+    <!-- Configuration -->
+    <menuitem
+        id="menu_employee_target_configuration"
+        name="Configuration"
+        parent="menu_employee_target_root"
+        sequence="90"
+        groups="employee_target_management.group_employee_target_manager"/>
+
+
+    <!-- Target Types -->
+    <menuitem
+        id="menu_employee_target_type"
+        name="Target Types"
+        parent="menu_employee_target_configuration"
+        action="action_employee_target_type"
+        sequence="10"
+        groups="employee_target_management.group_employee_target_manager"/>
+
+
+    <!-- Target Periods -->
+    <menuitem
+        id="menu_employee_target_period"
+        name="Target Periods"
+        parent="menu_employee_target_configuration"
+        action="action_employee_target_period"
+        sequence="20"
+         groups="employee_target_management.group_employee_target_manager"/>
+
+ 
+
+</odoo>
