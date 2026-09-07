@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <template
+        id="report_invoice_document_tax_summary"
+        inherit_id="account.report_invoice_document"
+    >
+
+        <xpath expr="//div[@id='payment_term']" position="before">
+
+            <div
+                t-if="o.tax_summary_html"
+                name="invoice_tax_summary"
+                style="
+                    margin-top: 18px;
+                    margin-bottom: 12px;
+                    page-break-inside: avoid;
+                "
+            >
+
+                <div
+                    style="
+                        font-size: 12px;
+                        font-weight: 600;
+                        margin-bottom: 6px;
+                    "
+                >
+                    Tax Summary
+                </div>
+
+                <div t-field="o.tax_summary_html"/>
+
+            </div>
+
+        </xpath>
+
+    </template>
+
+</odoo>
