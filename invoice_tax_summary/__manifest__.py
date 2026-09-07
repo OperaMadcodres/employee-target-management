@@ -7,23 +7,38 @@
 Invoice Tax Summary
 
 Adds a detailed tax summary to customer invoices,
-including tax groups, taxable amounts and tax amounts.
+including individual tax components, tax rates,
+taxable amounts and tax amounts.
 
-Designed for businesses using GST, VAT and other tax systems.
+The tax summary is available directly on the invoice
+and can also be included in the printed invoice.
+
+Designed for businesses using GST, VAT and other
+tax-based invoicing systems.
 """,
+
     "author": "Madcodres Technologies LLP",
     "website": "https://madcodres.com",
+    "support": "info@madcodres.com",
     "license": "OPL-1",
 
     "depends": [
         "account",
     ],
 
-    "data": [   
+    "data": [
         "views/account_move_views.xml",
         "views/report_invoice_views.xml",
     ],
 
-    "installable": True,
+    "images": [
+        "static/description/tax_summary_report1.png",
+        "static/description/tax_summary_report2.png",
+        "static/description/tax_summary_print.png",
+        "static/description/tax_summary_invoice_tab.png",
+        "static/description/tax_summary_invoice_bottom.png",
+    ],
+
     "application": True,
+    "installable": True,
 }
